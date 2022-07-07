@@ -1,0 +1,18 @@
+metadata:
+  name: root
+  finalizers:
+    # If enabled, cascades delete of resources when app is removed from argocd
+    enabled: true
+    values:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+
+  source:
+    path: apps/
+    repoURL: git@github.com:zuhataslan/zuhats-playground.git
+    targetRevision: zuhats-playground

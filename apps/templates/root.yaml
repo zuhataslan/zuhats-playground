@@ -1,0 +1,23 @@
+kind: Application
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: {{ .Values.metadata.name }}
+  {{- if .Values.metadata.finalizers.enabled }}
+  finalizers:
+  {{- range .Values.metadata.finalizers.values }}
+  - {{ . }}
+  {{- end }}
+  {{- end }}
+spec:
+  destination:
+    namespace: {{ .Values.spec.destination.namespace }}
+    server: {{ .Values.spec.destination.server }}
+  project: {{ .Values.spec.project }}
+  source:
+    path: {{ .Values.spec.source.path }}
+    repoURL: {{ .Values.spec.source.repoURL }}
+    tergetRevision: {{ .Values.spec.source.targetRevision }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
