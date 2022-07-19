@@ -1,0 +1,13 @@
+argo-cd:
+  dex:
+    # Disable external auth provider integration
+    enabled: false
+  server:
+    extraArgs:
+      # To serve Web UI over http (assuming you're using local k8s w/0 TLS)
+      - --insecure
+    config:
+      repositories: |
+        - type: helm
+          name: argo-cd
+          url: https://argoproj.github.io/argo-helm
